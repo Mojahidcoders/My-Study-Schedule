@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Productivity System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>My Study Schedule</h1>
+            <div class="date-selector">
+                <button id="prevDay" class="date-btn">←</button>
+                <span id="currentDate"></span>
+                <button id="nextDay" class="date-btn">→</button>
+            </div>
+        </header>
+
+        <!-- Daily Progress Summary -->
+        <section class="progress-summary">
+            <h2>Today's Progress</h2>
+            <div class="progress-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Completed</span>
+                    <span class="stat-value" id="completedTasks">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Tasks</span>
+                    <span class="stat-value" id="totalTasks">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Completion Rate</span>
+                    <span class="stat-value" id="completionRate">0%</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject-Specific Sections -->
+        <section class="subject-sections">
+            <!-- Data Science Section -->
+            <div class="subject-card">
+                <div class="card-header">
+                    <h3>📊 Data Science</h3>
+                    <button id="toggleDSForm" class="btn-toggle">+ Add Study Session</button>
+                </div>
+                
+                <div id="dsForm" class="study-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dsTopicInput">Topic / Concept</label>
+                            <input type="text" id="dsTopicInput" placeholder="e.g., Linear Regression, Pandas basics..." required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dsDuration">Study Duration (minutes)</label>
+                            <input type="number" id="dsDuration" placeholder="30" min="1" max="480">
+                        </div>
+                        <div class="form-group">
+                            <label for="dsDifficulty">Difficulty Level</label>
+                            <select id="dsDifficulty">
+                                <option value="Beginner">🟢 Beginner</option>
+                                <option value="Intermediate" selected>🟡 Intermediate</option>
+                                <option value="Advanced">🔴 Advanced</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dsResource">Resource Type</label>
+                            <select id="dsResource">
+                                <option value="Video">📹 Video</option>
+                                <option value="Book">📚 Book</option>
+                                <option value="Course">🎓 Course</option>
+                                <option value="Practice">💻 Practice</option>
+                                <option value="Documentation">📄 Documentation</option>
+                                <option value="Other">📝 Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dsNotes">Notes (Optional)</label>
+                            <textarea id="dsNotes" placeholder="Key takeaways, formulas, or important points..." rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button id="saveDSTopic" class="btn-primary btn-block">💾 Save Study Session</button>
+                </div>
+                
+                <div id="dsTopicList" class="topic-list"></div>
+                <div id="dsSummary" class="study-summary"></div>
+            </div>
+
+            <!-- English Section -->
+            <div class="subject-card">
+                <div class="card-header">
+                    <h3>🗣️ English Practice</h3>
+                    <button id="toggleEnglishForm" class="btn-toggle">+ Add Activity</button>
+                </div>
+                
+                <div id="englishForm" class="study-form" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="englishActivity">Activity Type</label>
+                            <select id="englishActivity">
+                                <option value="Podcast">🎧 Podcast</option>
+                                <option value="Speaking">🗣️ Speaking</option>
+                                <option value="Writing">✍️ Writing</option>
+                                <option value="Reading">📖 Reading</option>
+                                <option value="Vocabulary">📝 Vocabulary</option>
+                                <option value="Grammar">📐 Grammar</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="englishDuration">Duration (minutes)</label>
+                            <input type="number" id="englishDuration" placeholder="30" min="1" max="480">
+                        </div>
+                        <div class="form-group">
+                            <label for="englishCompleted">Status</label>
+                            <select id="englishCompleted">
+                                <option value="true">✅ Completed</option>
+                                <option value="false">⏳ Planned</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="englishContent">Content / Topic</label>
+                            <input type="text" id="englishContent" placeholder="e.g., TED Talk about AI, Essay on climate change...">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="englishNotes">Notes / Key Learnings</label>
+                            <textarea id="englishNotes" placeholder="New words, phrases, or reflections..." rows="2"></textarea>
+                        </div>
+                    </div>
+                    
+                    <button id="saveEnglish" class="btn-primary btn-block">💾 Save Activity</button>
+                </div>
+                
+                <div id="englishList" class="activity-list"></div>
+                <div id="englishSummary" class="study-summary"></div>
+            </div>
+        </section>
+
+        <!-- Timetable Section -->
+        <section class="timetable-section">
+            <div class="section-header">
+                <h2>Daily Timetable</h2>
+                <button id="addTaskBtn" class="btn-primary">+ Add Task</button>
+            </div>
+            <div id="timetableList" class="timetable-list"></div>
+        </section>
+
+        <!-- Weekly Overview -->
+        <section class="weekly-overview">
+            <h2>Weekly Overview</h2>
+            <div id="weeklyStats" class="weekly-grid"></div>
+        </section>
+
+        <!-- Add/Edit Task Modal -->
+        <div id="taskModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Add Task</h3>
+                    <button class="close-btn" id="closeModal">&times;</button>
+                </div>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTime">Time</label>
+                        <input type="time" id="taskTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskEndTime">End Time</label>
+                        <input type="time" id="taskEndTime" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskName">Task Name</label>
+                        <input type="text" id="taskName" placeholder="e.g., Study Python" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="taskCategory">Category</label>
+                        <select id="taskCategory" required>
+                            <option value="Data Science">Data Science</option>
+                            <option value="English">English</option>
+                            <option value="Travel">Travel</option>
+                            <option value="Rest">Rest</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="recurringGroup">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="taskRecurring">
+                            <span>Add to all dates (recurring daily task)</span>
+                        </label>
+                        <div id="recurringOptions" style="display: none; margin-top: 8px;">
+                            <label for="recurringDays">Number of days:</label>
+                            <input type="number" id="recurringDays" value="30" min="1" max="365" style="width: 100px; margin-top: 4px;">
+                            <small style="display: block; margin-top: 4px; color: #6b7280;">Task will be added to the next X days</small>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn-primary">Save Task</button>
+                        <button type="button" class="btn-secondary" id="cancelModal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
