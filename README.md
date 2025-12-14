@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Student Productivity System
 
 A complete, long-term usable timetable and progress tracking system built with vanilla HTML, CSS, and JavaScript.
@@ -69,3 +70,6 @@ Works on all modern browsers:
 ---
 
 Built for students who want a real, long-term productivity system without gimmicks or pressure.
+=======
+# My-Study-Schedule
+>>>>>>> 64c4cc49ce91dca7ef8de832b29b9ea794bb1129
